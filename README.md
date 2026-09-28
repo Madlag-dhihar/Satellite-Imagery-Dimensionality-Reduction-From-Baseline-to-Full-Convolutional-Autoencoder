@@ -1,10 +1,14 @@
 # Satellite-Imagery-Dimensionality-Reduction-From-Baseline-to-Full-Convolutional-Autoencoder
 
-**🔍 Problem **
+# 🔍 Problem 
+
 Kebutuhan untuk melakukan reduksi dimensi pada dataset citra satelit Overhead-MNIST (khususnya kelas Storage Tanks dan Parking Lot) dari dimensi awal 784 piksel menjadi representasi latent space 128 dimensi.   Penggunaan arsitektur baseline Autoencoder standar (yang menggunakan lapisan Flatten dan Dense) menghasilkan rekonstruksi citra yang blur dan kehilangan detail struktural objek yang penting.   Kemampuan model baseline dalam menangkap kemiripan struktural hanya berada di tingkat moderat, dibuktikan dengan skor metrik Structural Similarity Index (SSIM) yang hanya mencapai 0.5374.   
 
-💡 Approach
+# 💡 Approach
+
 Melakukan transisi arsitektur dari model standar menjadi Full-Convolutional Autoencoder dengan menghapus lapisan Flatten dan Dense untuk mempertahankan korelasi spasial antar piksel.   Mengganti fungsi UpSampling2D standar dengan Conv2DTranspose pada bagian decoder agar model dapat mempelajari bobot untuk proses ekspansi resolusi dengan lebih baik.   Menerapkan Hyperparameter Tuning secara sistematis dengan menguji variasi Learning Rate (0.001 hingga 0.0001) dan Dropout Rate (0.1 hingga 0.2) sebagai mekanisme regularisasi untuk mencegah overfitting.   Mengintegrasikan teknik Learning Rate Decay (ReduceLROnPlateau) untuk menurunkan learning rate secara otomatis saat loss mengalami stagnasi, guna memastikan konvergensi model yang stabil.   
 
 
-📊 Result (Hasil)Terdapat peningkatan performa yang sangat signifikan pada skor SSIM, melonjak dari 0.5374 pada model baseline menjadi 0.8084 pada model yang telah dioptimasi (tuned).   Secara visual, model tuned berhasil menghasilkan rekonstruksi citra satelit yang jauh lebih tajam dan presisi, sangat mendekati kualitas citra aslinya.   Model baru ini terbukti secara efektif mampu mempertahankan batas-batas tepi yang tegas dan fitur spasial objek (Storage Tanks dan Parking Lot) tanpa mengalami kehilangan detail struktural seperti pada model sebelumnya.   Model berhenti pada titik yang tepat (sekitar epoch ke-33) tanpa indikasi overfitting, menunjukkan generalisasi yang sangat baik antara data training dan validation.   
+# 📊 Result
+
+Terdapat peningkatan performa yang sangat signifikan pada skor SSIM, melonjak dari 0.5374 pada model baseline menjadi 0.8084 pada model yang telah dioptimasi (tuned). Secara visual, model tuned berhasil menghasilkan rekonstruksi citra satelit yang jauh lebih tajam dan presisi, sangat mendekati kualitas citra aslinya.   Model baru ini terbukti secara efektif mampu mempertahankan batas-batas tepi yang tegas dan fitur spasial objek (Storage Tanks dan Parking Lot) tanpa mengalami kehilangan detail struktural seperti pada model sebelumnya.   Model berhenti pada titik yang tepat (sekitar epoch ke-33) tanpa indikasi overfitting, menunjukkan generalisasi yang sangat baik antara data training dan validation.   
